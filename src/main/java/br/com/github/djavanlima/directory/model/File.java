@@ -24,6 +24,7 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFile;
 
+    @Column(unique = true)
     private String name;
 
     @ManyToOne

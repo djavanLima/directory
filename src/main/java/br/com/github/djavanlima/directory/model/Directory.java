@@ -25,12 +25,13 @@ public class Directory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDirectory;
 
+    @Column(unique = true)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "id_father_directory")
-    private Directory fatherDirectory;
+    @JoinColumn(name = "id_parent_directory")
+    private Directory parentDirectory;
 
-    @OneToMany(mappedBy = "fatherDirectory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentDirectory", cascade = CascadeType.ALL)
     private Set<Directory> subDirectories;
 }
