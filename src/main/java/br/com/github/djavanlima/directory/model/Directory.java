@@ -1,5 +1,6 @@
 package br.com.github.djavanlima.directory.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -28,10 +29,10 @@ public class Directory {
     @Column(unique = true)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_parent_directory")
     private Directory parentDirectory;
 
     @OneToMany(mappedBy = "parentDirectory", cascade = CascadeType.ALL)
-    private Set<Directory> subDirectories;
+    private Set<Directory> subDirectories = new HashSet<>();
 }

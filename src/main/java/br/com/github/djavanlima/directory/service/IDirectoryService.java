@@ -6,6 +6,8 @@ import br.com.github.djavanlima.directory.model.Directory;
 
 public interface IDirectoryService {
 
-    public Set<Directory> findAll(); 
+    public Set<Directory> findAll();
+
+    public Directory createDirectory(Directory directory); 
     
 }
