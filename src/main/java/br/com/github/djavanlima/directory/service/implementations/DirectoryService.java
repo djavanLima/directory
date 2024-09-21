@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.github.djavanlima.directory.model.Directory;
 import br.com.github.djavanlima.directory.repository.DirectoryRepository;
 import br.com.github.djavanlima.directory.service.IDirectoryService;
+import br.com.github.djavanlima.directory.service.exception.DirectoryNotFoundException;
 
 @Service
 public class DirectoryService implements IDirectoryService {
@@ -22,13 +23,26 @@ public class DirectoryService implements IDirectoryService {
     }
 
     @Override
+    public Directory findById(Long id) {
+        return directoryRepository.findById(id).orElseThrow(DirectoryNotFoundException::new);
+    }
+
+    @Override
     @Transactional
     public Directory createDirectory(Directory directory) {
-        if (directory.getIdDirectory() != null && directoryRepository.existsById(directory.getIdDirectory())) {
-            return directoryRepository.save(directory); // Para entidades já existentes
-        } else {
-            return directoryRepository.save(directory); // Para novas entidades
-        }
+        return directoryRepository.save(directory); 
     }
-    
+
+    @Override
+    public void delete(Long id) {
+        findById(id);
+        directoryRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(Long id, Directory directory) {
+        var oldDirectory = findById(id);
+        oldDirectory.changeState(directory);
+        directoryRepository.save(oldDirectory);
+    }
 }

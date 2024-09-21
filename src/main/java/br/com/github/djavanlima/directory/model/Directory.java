@@ -35,4 +35,8 @@ public class Directory {
 
     @OneToMany(mappedBy = "parentDirectory", cascade = CascadeType.ALL)
     private Set<Directory> subDirectories = new HashSet<>();
+
+    public void changeState(Directory directory){
+        setName(directory.getName());
+    }
 }
