@@ -35,7 +35,7 @@ public class DirectoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DirectoryDTO> buscarCliente(@PathVariable Long id) {
+    public ResponseEntity<DirectoryDTO> findDirectoryByid(@PathVariable Long id) {
         var directory = directoryService.findById(id);
         var directoryDTO = DirectoryDTO.fromDomain(directory);
         return ResponseEntity.ok().body(directoryDTO);
