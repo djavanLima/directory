@@ -7,28 +7,16 @@ public class FileBuilder {
 
     private File file;
 
-    public static FileBuilder oneDirectory() {
+    public static FileBuilder oneFile() {
         FileBuilder fileBuilder = new FileBuilder();
-        fileBuilder.file.setName("Root");
+        fileBuilder.file = new  File(null, "file 1", null );
         return fileBuilder;
     }
 
-    public static FileBuilder otherDirectory() {
-        FileBuilder FileBuilder = new FileBuilder();
-        FileBuilder.file.setName("Root 2");
-        return FileBuilder;
-    }
-
-    public static FileBuilder sonDirectory() {
-        FileBuilder FileBuilder = new FileBuilder();
-        FileBuilder.file.setName("subdirectory 1");
-        return FileBuilder;
-    }
-
-    public static FileBuilder otherSonDirectory() {
-        FileBuilder FileBuilder = new FileBuilder();
-        FileBuilder.file.setName("subdirectory 2");
-        return FileBuilder;
+    public static FileBuilder otherFile() {
+        FileBuilder fileBuilder = new FileBuilder();
+        fileBuilder.file = new  File(null, "File 2", null );
+        return fileBuilder;
     }
 
     public FileBuilder withId() {
