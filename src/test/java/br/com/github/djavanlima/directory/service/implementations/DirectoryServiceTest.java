@@ -103,7 +103,7 @@ public class DirectoryServiceTest {
         Directory oldDirectory = DirectoryBuilder.oneDirectory().withId().build();
         when(directoryRepository.findById(1L)).thenReturn(Optional.of(oldDirectory));
         
-        Directory newDirectory = DirectoryBuilder.otherDirectory().withOtherId().build();
+        Directory newDirectory = DirectoryBuilder.otherDirectory().build();
         
         directoryService.update(1L, newDirectory);
         verify(directoryRepository).save(any(Directory.class));
