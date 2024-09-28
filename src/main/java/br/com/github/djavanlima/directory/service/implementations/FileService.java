@@ -41,4 +41,14 @@ public class FileService implements IFileService {
         findById(id);
         fileRepository.save(file);
     }
+
+    @Override
+    public List <File> findByDirectorId(Long id) {
+        return fileRepository.findByDirectorId(id);
+    }
+
+    @Override
+    public void deleteByParentDirectory(Long idDirectory) {
+        fileRepository.deleteByParentDirectory(idDirectory);
+    }
 }

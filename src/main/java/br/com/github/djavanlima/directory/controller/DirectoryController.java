@@ -1,6 +1,7 @@
 package br.com.github.djavanlima.directory.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.github.djavanlima.directory.controller.dto.DirectoryDTO;
+import br.com.github.djavanlima.directory.model.presenter.DirectoryWithFile;
 import br.com.github.djavanlima.directory.service.IDirectoryService;
+
+
 
 @RestController
 @RequestMapping("/directories")
@@ -33,6 +37,15 @@ public class DirectoryController {
     
         return ResponseEntity.ok().body(dto);
     }
+
+    @GetMapping("/parents")
+    public ResponseEntity<List<DirectoryDTO>> findParents() {
+        var directories = directoryService.findParents();
+        var dto = directories.stream().map(DirectoryDTO::fromDomain).collect(Collectors.toList());
+    
+        return ResponseEntity.ok().body(dto);
+    }
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<DirectoryDTO> findDirectoryByid(@PathVariable Long id) {
@@ -64,6 +77,18 @@ public class DirectoryController {
         var directory = directoryDTO.toDomain();
         directoryService.update(id, directory);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value="directory-with-file/{id}")
+    public ResponseEntity<DirectoryWithFile> findDirectoryWithFileByParentDirectory(@PathVariable Long id) {
+        DirectoryWithFile directoryWithFile = directoryService.findDirectoryWithFileByParentDirectory(id);
+        return ResponseEntity.ok().body(directoryWithFile);
+    }
+    
+    @GetMapping(value="directory-with-file/hierarchy")
+    public ResponseEntity<List<DirectoryWithFile>> findDirectoryWithFileByHierarchy() {
+        List<DirectoryWithFile> directoriesWithFiles = directoryService.findDirectoriesWithFiles();
+        return ResponseEntity.ok().body(directoriesWithFiles);
     }
 
 }

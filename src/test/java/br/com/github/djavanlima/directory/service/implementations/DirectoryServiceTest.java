@@ -6,9 +6,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +34,9 @@ public class DirectoryServiceTest {
     @Mock
     private DirectoryRepository directoryRepository;
 
+    @Mock
+    private FileService fileService;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -41,12 +44,12 @@ public class DirectoryServiceTest {
 
     @Test
     void testFindAll() {
-        Set<Directory> directories = new HashSet<>();
+        List<Directory> directories = new ArrayList<>();
         directories.add(DirectoryBuilder.oneDirectory().withId().build());
 
         when(directoryRepository.findAllDirectories()).thenReturn(directories);
 
-        Set<Directory> result = directoryService.findAll();
+        List<Directory> result = directoryService.findAll();
         assertEquals(1, result.size());
         verify(directoryRepository).findAllDirectories();
     }
@@ -84,6 +87,7 @@ public class DirectoryServiceTest {
     void testDelete() {
         Directory directory = DirectoryBuilder.oneDirectory().withId().build();
         when(directoryRepository.findById(1L)).thenReturn(Optional.of(directory));
+        when(fileService.findByDirectorId(1L)).thenReturn(new ArrayList<>());
 
         directoryService.delete(1L);
         verify(directoryRepository).deleteById(1L);

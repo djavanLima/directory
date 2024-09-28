@@ -15,5 +15,9 @@ public interface IFileService {
     public void delete(Long id);
 
     public void update(Long id, File file);
-    
+
+    public List<File> findByDirectorId(Long id);
+
+    public void deleteByParentDirectory(Long idDirectory);
+
 }
