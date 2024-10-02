@@ -74,12 +74,13 @@ spring.jpa.hibernate.ddl-auto=update
 - **Descrição**: Cria um novo diretório.
 - **Corpo da Requisição**:
   - Objeto `DirectoryDTO` que contém as informações do diretório a ser criado.
+-json post para criar o diretorio.
 {
     "idDirectory": null,
     "name": "root",
     "parentDirectory": null,
     "subDirectories": []
-}
+  }
 - **Resposta**:
   - **Código**: 201 Created
   - **Corpo**: Objeto `DirectoryDTO` criado.
