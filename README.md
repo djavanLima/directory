@@ -1,4 +1,4 @@
-# Hieraquia de diretorios
+# Hieraquia de diretórios
 
 ## Descrição
 
